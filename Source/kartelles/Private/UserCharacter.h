@@ -4,18 +4,19 @@
 
 #include "CoreMinimal.h"
 #include "GameFramework/Character.h"
+#include "AbilitySystemInterface.h"
 #include "UserCharacter.generated.h"
 
 
 class UInputAction;
 UCLASS()
-class AUserCharacter : public ACharacter
+class AUserCharacter : public ACharacter, public IAbilitySystemInterface
 {
 	GENERATED_BODY()
 
 public:
-	// Sets default values for this character's properties
-	AUserCharacter();
+	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "Abilities")
+	TObjectPtr<UAbilitySystemComponent> AbilitySystemComponent;
 
 protected:
 	// Called when the game starts or when spawned
@@ -26,7 +27,10 @@ protected:
 	UPROPERTY(EditAnywhere, Category = "Input")
 	class UInputAction* MoveAction;
 
-public:	
+public:
+	// Sets default values for this character's properties
+	AUserCharacter();
+
 	// Called every frame
 	virtual void Tick(float DeltaTime) override;
 
@@ -35,5 +39,10 @@ public:
 
 	// Called to bind functionality to input
 	virtual void SetupPlayerInputComponent(class UInputComponent* PlayerInputComponent) override;
+
+	// Ability System Interface
+	virtual UAbilitySystemComponent* GetAbilitySystemComponent() const override;
+
+
 
 };

@@ -6,11 +6,19 @@
 #include "EnhancedInputSubsystems.h"
 #include "InputActionValue.h"
 
+// Abilities
+#include "AbilitySystemComponent.h"
+#include "kartelles/GAS/Attributes/BasicAttributeSet.h"
+
 // Sets default values
 AUserCharacter::AUserCharacter()
 {
  	// Set this character to call Tick() every frame.  You can turn this off to improve performance if you don't need it.
 	PrimaryActorTick.bCanEverTick = true;
+	AbilitySystemComponent = CreateDefaultSubobject<UAbilitySystemComponent>(TEXT("AbilitySystemComponent"));
+	
+	// Add the basic attribute set
+	BasicAttributeSet = CreateDefaultSubobject<UBasicAttributeSet>(TEXT("BasicAttributeSet"));
 
 }
 
@@ -22,6 +30,10 @@ void AUserCharacter::BeginPlay()
 		if (UEnhancedInputLocalPlayerSubsystem* Subsystem = ULocalPlayer::GetSubsystem<UEnhancedInputLocalPlayerSubsystem>(PC->GetLocalPlayer())) {
 			Subsystem->AddMappingContext(DefaultMappingContext, 0);
 		}
+	}
+
+	if(AbilitySystemComponent) {
+		AbilitySystemComponent->InitAbilityActorInfo(this, this);
 	}
 	
 }
@@ -44,4 +56,9 @@ void AUserCharacter::SetupPlayerInputComponent(UInputComponent* PlayerInputCompo
 	if (UEnhancedInputComponent* EnhancedInputComponent = CastChecked<UEnhancedInputComponent>(PlayerInputComponent)) {
 		EnhancedInputComponent->BindAction(MoveAction, ETriggerEvent::Triggered, this, &AUserCharacter::Move);
 	}
+}
+
+UAbilitySystemComponent* AUserCharacter::GetAbilitySystemComponent() const
+{
+	return AbilitySystemComponent;
 }
