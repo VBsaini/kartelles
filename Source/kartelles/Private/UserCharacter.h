@@ -9,6 +9,9 @@
 
 
 class UInputAction;
+class UBasicAttributeSet;
+
+
 UCLASS()
 class AUserCharacter : public ACharacter, public IAbilitySystemInterface
 {
@@ -17,6 +20,10 @@ class AUserCharacter : public ACharacter, public IAbilitySystemInterface
 public:
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "Abilities")
 	TObjectPtr<UAbilitySystemComponent> AbilitySystemComponent;
+
+	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "Abilities")
+	TObjectPtr<UBasicAttributeSet> BasicAttributeSet;
+
 
 protected:
 	// Called when the game starts or when spawned

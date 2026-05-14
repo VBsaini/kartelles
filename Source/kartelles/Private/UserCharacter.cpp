@@ -10,6 +10,8 @@
 #include "AbilitySystemComponent.h"
 #include "kartelles/GAS/Attributes/BasicAttributeSet.h"
 
+#include "kartelles/Manager/EnemyManagerSubsystem.h"
+
 // Sets default values
 AUserCharacter::AUserCharacter()
 {
@@ -35,8 +37,28 @@ void AUserCharacter::BeginPlay()
 	if(AbilitySystemComponent) {
 		AbilitySystemComponent->InitAbilityActorInfo(this, this);
 	}
-	
+	if (GetWorld() && GetWorld()->IsGameWorld()) {
+		UEnemyManagerSubsystem* EnemyManager = GetWorld()->GetSubsystem<UEnemyManagerSubsystem>();
+		if (EnemyManager) {
+			EnemyManager->RegisterEnemy(this);
+		}
+	}
+
 }
+
+//void AUserCharacter::EndPlay(const EEndPlayReason::Type EndPlayReason)
+//{
+//	if (GetWorld())
+//	{
+//		UEnemyManagerSubsystem* EnemyManager = GetWorld()->GetSubsystem<UEnemyManagerSubsystem>();
+//		if (EnemyManager) 
+//		{
+//			EnemyManager->UnregisterEnemy(this);
+//		}
+//	}
+//	Super::EndPlay(EndPlayReason);
+//}
+
 
 // Called every frame
 void AUserCharacter::Tick(float DeltaTime)
@@ -47,8 +69,8 @@ void AUserCharacter::Tick(float DeltaTime)
 
 void AUserCharacter::Move(const FInputActionValue& Value) {
 	FVector2D MovementVector = Value.Get<FVector2D>();
-	AddMovementInput(GetActorForwardVector(), MovementVector.Y);
-	AddMovementInput(GetActorRightVector(), MovementVector.X);
+	AddMovementInput(GetActorForwardVector(), MovementVector.X);
+	AddMovementInput(GetActorRightVector(), MovementVector.Y);
 }
 
 // Called to bind functionality to input
