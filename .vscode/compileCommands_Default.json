@@ -1,0 +1,130 @@
+[
+	{
+		"file": "C:\\Users\\bgsaini\\OneDrive\\Desktop\\Unreal Projects\\kartelles\\Source\\kartelles\\GAS\\Attributes\\BasicAttributeSet.cpp",
+		"arguments": [
+			"C:\\Program Files\\Microsoft Visual Studio\\2022\\Community\\VC\\Tools\\MSVC\\14.44.35207\\bin\\Hostx64\\x64\\cl.exe",
+			"@C:\\Users\\bgsaini\\OneDrive\\Desktop\\Unreal Projects\\kartelles\\.vscode\\compileCommands_Default\\kartelles.1.rsp"
+		],
+		"directory": "C:\\Program Files\\Epic Games\\UE_5.7\\Engine\\Source"
+	},
+	{
+		"file": "C:\\Users\\bgsaini\\OneDrive\\Desktop\\Unreal Projects\\kartelles\\Source\\kartelles\\GAS\\Attributes\\BasicAttributeSet.h",
+		"arguments": [
+			"C:\\Program Files\\Microsoft Visual Studio\\2022\\Community\\VC\\Tools\\MSVC\\14.44.35207\\bin\\Hostx64\\x64\\cl.exe",
+			"@C:\\Users\\bgsaini\\OneDrive\\Desktop\\Unreal Projects\\kartelles\\.vscode\\compileCommands_Default\\kartelles.1.rsp"
+		],
+		"directory": "C:\\Program Files\\Epic Games\\UE_5.7\\Engine\\Source"
+	},
+	{
+		"file": "C:\\Users\\bgsaini\\OneDrive\\Desktop\\Unreal Projects\\kartelles\\Source\\kartelles\\Inventory\\Inventory.cpp",
+		"arguments": [
+			"C:\\Program Files\\Microsoft Visual Studio\\2022\\Community\\VC\\Tools\\MSVC\\14.44.35207\\bin\\Hostx64\\x64\\cl.exe",
+			"@C:\\Users\\bgsaini\\OneDrive\\Desktop\\Unreal Projects\\kartelles\\.vscode\\compileCommands_Default\\kartelles.1.rsp"
+		],
+		"directory": "C:\\Program Files\\Epic Games\\UE_5.7\\Engine\\Source"
+	},
+	{
+		"file": "C:\\Users\\bgsaini\\OneDrive\\Desktop\\Unreal Projects\\kartelles\\Source\\kartelles\\Inventory\\Inventory.h",
+		"arguments": [
+			"C:\\Program Files\\Microsoft Visual Studio\\2022\\Community\\VC\\Tools\\MSVC\\14.44.35207\\bin\\Hostx64\\x64\\cl.exe",
+			"@C:\\Users\\bgsaini\\OneDrive\\Desktop\\Unreal Projects\\kartelles\\.vscode\\compileCommands_Default\\kartelles.1.rsp"
+		],
+		"directory": "C:\\Program Files\\Epic Games\\UE_5.7\\Engine\\Source"
+	},
+	{
+		"file": "C:\\Users\\bgsaini\\OneDrive\\Desktop\\Unreal Projects\\kartelles\\Source\\kartelles\\Inventory\\Structure\\InventoryCell.cpp",
+		"arguments": [
+			"C:\\Program Files\\Microsoft Visual Studio\\2022\\Community\\VC\\Tools\\MSVC\\14.44.35207\\bin\\Hostx64\\x64\\cl.exe",
+			"@C:\\Users\\bgsaini\\OneDrive\\Desktop\\Unreal Projects\\kartelles\\.vscode\\compileCommands_Default\\kartelles.1.rsp"
+		],
+		"directory": "C:\\Program Files\\Epic Games\\UE_5.7\\Engine\\Source"
+	},
+	{
+		"file": "C:\\Users\\bgsaini\\OneDrive\\Desktop\\Unreal Projects\\kartelles\\Source\\kartelles\\Inventory\\Structure\\ItemData.cpp",
+		"arguments": [
+			"C:\\Program Files\\Microsoft Visual Studio\\2022\\Community\\VC\\Tools\\MSVC\\14.44.35207\\bin\\Hostx64\\x64\\cl.exe",
+			"@C:\\Users\\bgsaini\\OneDrive\\Desktop\\Unreal Projects\\kartelles\\.vscode\\compileCommands_Default\\kartelles.1.rsp"
+		],
+		"directory": "C:\\Program Files\\Epic Games\\UE_5.7\\Engine\\Source"
+	},
+	{
+		"file": "C:\\Users\\bgsaini\\OneDrive\\Desktop\\Unreal Projects\\kartelles\\Source\\kartelles\\Inventory\\Structure\\ItemDataStruct.cpp",
+		"arguments": [
+			"C:\\Program Files\\Microsoft Visual Studio\\2022\\Community\\VC\\Tools\\MSVC\\14.44.35207\\bin\\Hostx64\\x64\\cl.exe",
+			"@C:\\Users\\bgsaini\\OneDrive\\Desktop\\Unreal Projects\\kartelles\\.vscode\\compileCommands_Default\\kartelles.1.rsp"
+		],
+		"directory": "C:\\Program Files\\Epic Games\\UE_5.7\\Engine\\Source"
+	},
+	{
+		"file": "C:\\Users\\bgsaini\\OneDrive\\Desktop\\Unreal Projects\\kartelles\\Source\\kartelles\\Manager\\EnemyManagerSubsystem.cpp",
+		"arguments": [
+			"C:\\Program Files\\Microsoft Visual Studio\\2022\\Community\\VC\\Tools\\MSVC\\14.44.35207\\bin\\Hostx64\\x64\\cl.exe",
+			"@C:\\Users\\bgsaini\\OneDrive\\Desktop\\Unreal Projects\\kartelles\\.vscode\\compileCommands_Default\\kartelles.1.rsp"
+		],
+		"directory": "C:\\Program Files\\Epic Games\\UE_5.7\\Engine\\Source"
+	},
+	{
+		"file": "C:\\Users\\bgsaini\\OneDrive\\Desktop\\Unreal Projects\\kartelles\\Source\\kartelles\\Manager\\EnemyManagerSubsystem.h",
+		"arguments": [
+			"C:\\Program Files\\Microsoft Visual Studio\\2022\\Community\\VC\\Tools\\MSVC\\14.44.35207\\bin\\Hostx64\\x64\\cl.exe",
+			"@C:\\Users\\bgsaini\\OneDrive\\Desktop\\Unreal Projects\\kartelles\\.vscode\\compileCommands_Default\\kartelles.1.rsp"
+		],
+		"directory": "C:\\Program Files\\Epic Games\\UE_5.7\\Engine\\Source"
+	},
+	{
+		"file": "C:\\Users\\bgsaini\\OneDrive\\Desktop\\Unreal Projects\\kartelles\\Source\\kartelles\\Private\\UserCharacter.cpp",
+		"arguments": [
+			"C:\\Program Files\\Microsoft Visual Studio\\2022\\Community\\VC\\Tools\\MSVC\\14.44.35207\\bin\\Hostx64\\x64\\cl.exe",
+			"@C:\\Users\\bgsaini\\OneDrive\\Desktop\\Unreal Projects\\kartelles\\.vscode\\compileCommands_Default\\kartelles.1.rsp"
+		],
+		"directory": "C:\\Program Files\\Epic Games\\UE_5.7\\Engine\\Source"
+	},
+	{
+		"file": "C:\\Users\\bgsaini\\OneDrive\\Desktop\\Unreal Projects\\kartelles\\Source\\kartelles\\Private\\UserCharacter.h",
+		"arguments": [
+			"C:\\Program Files\\Microsoft Visual Studio\\2022\\Community\\VC\\Tools\\MSVC\\14.44.35207\\bin\\Hostx64\\x64\\cl.exe",
+			"@C:\\Users\\bgsaini\\OneDrive\\Desktop\\Unreal Projects\\kartelles\\.vscode\\compileCommands_Default\\kartelles.1.rsp"
+		],
+		"directory": "C:\\Program Files\\Epic Games\\UE_5.7\\Engine\\Source"
+	},
+	{
+		"file": "C:\\Users\\bgsaini\\OneDrive\\Desktop\\Unreal Projects\\kartelles\\Source\\kartelles\\Structure\\GenericStructs.cpp",
+		"arguments": [
+			"C:\\Program Files\\Microsoft Visual Studio\\2022\\Community\\VC\\Tools\\MSVC\\14.44.35207\\bin\\Hostx64\\x64\\cl.exe",
+			"@C:\\Users\\bgsaini\\OneDrive\\Desktop\\Unreal Projects\\kartelles\\.vscode\\compileCommands_Default\\kartelles.1.rsp"
+		],
+		"directory": "C:\\Program Files\\Epic Games\\UE_5.7\\Engine\\Source"
+	},
+	{
+		"file": "C:\\Users\\bgsaini\\OneDrive\\Desktop\\Unreal Projects\\kartelles\\Source\\kartelles\\Structure\\GenericStructs.h",
+		"arguments": [
+			"C:\\Program Files\\Microsoft Visual Studio\\2022\\Community\\VC\\Tools\\MSVC\\14.44.35207\\bin\\Hostx64\\x64\\cl.exe",
+			"@C:\\Users\\bgsaini\\OneDrive\\Desktop\\Unreal Projects\\kartelles\\.vscode\\compileCommands_Default\\kartelles.1.rsp"
+		],
+		"directory": "C:\\Program Files\\Epic Games\\UE_5.7\\Engine\\Source"
+	},
+	{
+		"file": "C:\\Users\\bgsaini\\OneDrive\\Desktop\\Unreal Projects\\kartelles\\Source\\kartelles\\kartelles.Build.cs",
+		"arguments": [
+			"C:\\Program Files\\Microsoft Visual Studio\\2022\\Community\\VC\\Tools\\MSVC\\14.44.35207\\bin\\Hostx64\\x64\\cl.exe",
+			"@C:\\Users\\bgsaini\\OneDrive\\Desktop\\Unreal Projects\\kartelles\\.vscode\\compileCommands_Default\\kartelles.1.rsp"
+		],
+		"directory": "C:\\Program Files\\Epic Games\\UE_5.7\\Engine\\Source"
+	},
+	{
+		"file": "C:\\Users\\bgsaini\\OneDrive\\Desktop\\Unreal Projects\\kartelles\\Source\\kartelles\\kartelles.cpp",
+		"arguments": [
+			"C:\\Program Files\\Microsoft Visual Studio\\2022\\Community\\VC\\Tools\\MSVC\\14.44.35207\\bin\\Hostx64\\x64\\cl.exe",
+			"@C:\\Users\\bgsaini\\OneDrive\\Desktop\\Unreal Projects\\kartelles\\.vscode\\compileCommands_Default\\kartelles.1.rsp"
+		],
+		"directory": "C:\\Program Files\\Epic Games\\UE_5.7\\Engine\\Source"
+	},
+	{
+		"file": "C:\\Users\\bgsaini\\OneDrive\\Desktop\\Unreal Projects\\kartelles\\Source\\kartelles\\kartelles.h",
+		"arguments": [
+			"C:\\Program Files\\Microsoft Visual Studio\\2022\\Community\\VC\\Tools\\MSVC\\14.44.35207\\bin\\Hostx64\\x64\\cl.exe",
+			"@C:\\Users\\bgsaini\\OneDrive\\Desktop\\Unreal Projects\\kartelles\\.vscode\\compileCommands_Default\\kartelles.1.rsp"
+		],
+		"directory": "C:\\Program Files\\Epic Games\\UE_5.7\\Engine\\Source"
+	}
+]

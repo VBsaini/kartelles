@@ -6,6 +6,7 @@
 #include "GameFramework/Actor.h"
 #include "Inventory.generated.h"
 struct FItemDataStruct;
+struct FInventoryCell;
 UCLASS()
 class KARTELLES_API AInventory : public AActor
 {
@@ -23,7 +24,8 @@ public:
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Inventory")
 	float CellSize;
 
-	//UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Inventory")
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Inventory")
+	TArray<FInventoryCell> InventoryCells;
 	//TSub
 
 protected:
@@ -36,6 +38,12 @@ public:
 	
 	UFUNCTION(BlueprintCallable, Category = "Inventory")
 	float GetCellIndex(float X, float Y);
+	UFUNCTION(BlueprintCallable, Category = "Inventory")
+	void PlaceItem(float StartX, float StartY, FItemDataStruct ItemData);
 
-	virtual void PlaceItem(float StartX, float StartY, FItemDataStruct ItemData);
+	UFUNCTION(BlueprintCallable, Category = "Inventory")
+	void RemoveItem(float StartX, float StartY, FItemDataStruct ItemData);
+
+	UFUNCTION(BlueprintCallable, Category = "Inventory")
+	bool CanPlaceItem(float StartX, float StartY, FItemDataStruct ItemData);
 };
