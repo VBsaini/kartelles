@@ -19,6 +19,7 @@ void AInventory::BeginPlay()
 	Super::BeginPlay();
 	GridWidth = 8.0;
 	GridHeight = 6.0;
+	CellSize = 64;
 	int cells = (GridWidth * GridHeight) - 1;
 	for (int i = 0; i < cells; i++) {
 		FInventoryCell cell;
@@ -91,5 +92,5 @@ bool AInventory::CanPlaceItem(float StartX, float StartY, FItemDataStruct ItemDa
 			return false; // Out of bounds
 		}
 	}
-	return false;
+	return true;
 }
