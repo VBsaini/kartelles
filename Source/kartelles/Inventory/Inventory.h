@@ -37,13 +37,13 @@ public:
 	virtual void Tick(float DeltaTime) override;
 	
 	UFUNCTION(BlueprintCallable, Category = "Inventory")
-	float GetCellIndex(float X, float Y);
+	int32 GetCellIndex(int32 X, int32 Y);
 	UFUNCTION(BlueprintCallable, Category = "Inventory")
-	void PlaceItem(float StartX, float StartY, FItemDataStruct ItemData);
+	void PlaceItem(int32 StartX, int32 StartY, FItemDataStruct ItemData);
 
 	UFUNCTION(BlueprintCallable, Category = "Inventory")
-	void RemoveItem(float StartX, float StartY, FItemDataStruct ItemData);
+	void RemoveItem(int32 StartX, int32 StartY, FItemDataStruct ItemData);
 
 	UFUNCTION(BlueprintCallable, Category = "Inventory")
-	bool CanPlaceItem(float StartX, float StartY, FItemDataStruct ItemData);
+	bool CanPlaceItem(int32 StartX, int32 StartY, FItemDataStruct ItemData);
 };

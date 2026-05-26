@@ -35,7 +35,7 @@ public:
 	bool bRotatable = false;
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Item")
-	TArray<FVector2D> ShapeOffsets;
+	TArray<FIntPoint> ShapeOffsets;
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Item")
 	TSubclassOf<UGameplayAbility> ItemAbilityClass;

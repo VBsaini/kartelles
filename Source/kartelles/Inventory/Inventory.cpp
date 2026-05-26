@@ -37,20 +37,20 @@ void AInventory::Tick(float DeltaTime)
 
 }
 
-float AInventory::GetCellIndex(float X, float Y)
+int32 AInventory::GetCellIndex(int32 X, int32 Y)
 {
-	float index = (Y * GridWidth) + X;
+	int32 index = (Y * GridWidth) + X;
 	return index;
 }
 
-void AInventory::PlaceItem(float StartX, float StartY, FItemDataStruct ItemData)
+void AInventory::PlaceItem(int32 StartX, int32 StartY, FItemDataStruct ItemData)
 {
 	int itemWidth = ItemData.Width;
 	int itemHeight = ItemData.Height;
-	for(const FVector2D& offset : ItemData.ShapeOffsets) {
-		float cellX = StartX + offset.X;
-		float cellY = StartY + offset.Y;
-		float cellIndex = GetCellIndex(cellX, cellY);
+	for(const FIntPoint& offset : ItemData.ShapeOffsets) {
+		int32 cellX = StartX + offset.X;
+		int32 cellY = StartY + offset.Y;
+		int32 cellIndex = GetCellIndex(cellX, cellY);
 		if(InventoryCells.IsValidIndex(cellIndex)) {
 			InventoryCells[cellIndex].Occupied = true;
 			InventoryCells[cellIndex].ItemId = ItemData.ItemID;
@@ -58,14 +58,14 @@ void AInventory::PlaceItem(float StartX, float StartY, FItemDataStruct ItemData)
 	}
 }
 
-void AInventory::RemoveItem(float StartX, float StartY, FItemDataStruct ItemData)
+void AInventory::RemoveItem(int32 StartX, int32 StartY, FItemDataStruct ItemData)
 {
 	int itemWidth = ItemData.Width;
 	int itemHeight = ItemData.Height;
-	for(const FVector2D& offset : ItemData.ShapeOffsets) {
-		float cellX = StartX + offset.X;
-		float cellY = StartY + offset.Y;
-		float cellIndex = GetCellIndex(cellX, cellY);
+	for(const FIntPoint& offset : ItemData.ShapeOffsets) {
+		int32 cellX = StartX + offset.X;
+		int32 cellY = StartY + offset.Y;
+		int32 cellIndex = GetCellIndex(cellX, cellY);
 		if(InventoryCells.IsValidIndex(cellIndex)) {
 			InventoryCells[cellIndex].Occupied = false;
 			InventoryCells[cellIndex].ItemId = -1;
@@ -73,17 +73,17 @@ void AInventory::RemoveItem(float StartX, float StartY, FItemDataStruct ItemData
 	}
 }
 
-bool AInventory::CanPlaceItem(float StartX, float StartY, FItemDataStruct ItemData)
+bool AInventory::CanPlaceItem(int32 StartX, int32 StartY, FItemDataStruct ItemData)
 {
 	int itemWidth = ItemData.Width;
 	int itemHeight = ItemData.Height;
-	for(const FVector2D& offset : ItemData.ShapeOffsets) {
-		float cellX = StartX + offset.X;
-		float cellY = StartY + offset.Y;
+	for(const FIntPoint& offset : ItemData.ShapeOffsets) {
+		int32 cellX = StartX + offset.X;
+		int32 cellY = StartY + offset.Y;
 		if(cellY < 0 || cellY >= GridHeight || cellX < 0 || cellX >= GridWidth) {
 			return false; // Out of bounds
 		}
-		float cellIndex = GetCellIndex(cellX, cellY);
+		int32 cellIndex = GetCellIndex(cellX, cellY);
 		if(InventoryCells.IsValidIndex(cellIndex)) {
 			if(InventoryCells[cellIndex].Occupied) {
 				return false;
