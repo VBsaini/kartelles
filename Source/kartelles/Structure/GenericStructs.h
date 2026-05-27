@@ -33,9 +33,12 @@ public:
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Item")
 	bool bRotatable = false;
+	
+	/*UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Item")
+	bool bIsPlaced = false;*/
+
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Item")
 	bool bIsPlaced = false;
-
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Item")
 	TArray<FIntPoint> ShapeOffsets;
 
