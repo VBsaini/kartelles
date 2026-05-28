@@ -9,4 +9,5 @@ UBasicAttributeSet::UBasicAttributeSet()
 	MaxHealth = 1000.f;
 	Shield = 0.f;
 	MaxShield = 750.f;
+	Gold = 0.f;
 }

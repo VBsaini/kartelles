@@ -36,4 +36,8 @@ public:
 	FGameplayAttributeData MaxShield;
 	ATTRIBUTE_ACCESSORS_BASIC(UBasicAttributeSet, MaxShield)
 
+	UPROPERTY(BlueprintReadOnly, Category = "Attributes")
+	FGameplayAttributeData Gold;
+	ATTRIBUTE_ACCESSORS_BASIC(UBasicAttributeSet, Gold)
+
 };
