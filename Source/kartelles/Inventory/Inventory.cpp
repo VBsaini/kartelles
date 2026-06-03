@@ -3,7 +3,7 @@
 
 #include "Inventory.h"
 #include "kartelles/Structure/GenericStructs.h"
-
+#include "kartelles/Bonds/ItemBondBase.h"
 
 // Sets default values
 AInventory::AInventory()
@@ -20,6 +20,7 @@ void AInventory::BeginPlay()
 	GridWidth = 8.0;
 	GridHeight = 6.0;
 	CellSize = 64;
+	BondCount = {};
 	int cells = (GridWidth * GridHeight) - 1;
 	for (int i = 0; i < cells; i++) {
 		FInventoryCell cell;
@@ -43,10 +44,11 @@ int32 AInventory::GetCellIndex(int32 X, int32 Y)
 	return index;
 }
 
-void AInventory::PlaceItem(int32 StartX, int32 StartY, FItemDataStruct ItemData)
+void AInventory::PlaceItem(int32 StartX, int32 StartY, FItemData ItemData)
 {
 	int itemWidth = ItemData.Width;
 	int itemHeight = ItemData.Height;
+	BondCount.FindOrAdd(ItemData.Bond) += ItemData.BondContribution;
 	for(const FIntPoint& offset : ItemData.ShapeOffsets) {
 		int32 cellX = StartX + offset.X;
 		int32 cellY = StartY + offset.Y;
@@ -58,7 +60,7 @@ void AInventory::PlaceItem(int32 StartX, int32 StartY, FItemDataStruct ItemData)
 	}
 }
 
-void AInventory::RemoveItem(int32 StartX, int32 StartY, FItemDataStruct ItemData)
+void AInventory::RemoveItem(int32 StartX, int32 StartY, FItemData ItemData)
 {
 	int itemWidth = ItemData.Width;
 	int itemHeight = ItemData.Height;
@@ -73,7 +75,7 @@ void AInventory::RemoveItem(int32 StartX, int32 StartY, FItemDataStruct ItemData
 	}
 }
 
-bool AInventory::CanPlaceItem(int32 StartX, int32 StartY, FItemDataStruct ItemData)
+bool AInventory::CanPlaceItem(int32 StartX, int32 StartY, FItemData ItemData)
 {
 	int itemWidth = ItemData.Width;
 	int itemHeight = ItemData.Height;
@@ -93,4 +95,44 @@ bool AInventory::CanPlaceItem(int32 StartX, int32 StartY, FItemDataStruct ItemDa
 		}
 	}
 	return true;
+}
+
+void AInventory::ApplyEffects(UDataTable* BondTable)
+{
+	if (BondTable) {
+		static const FString ContextString(TEXT("Iterating Data Table"));
+		TArray<FBondEffect* > Rows;
+		BondTable->GetAllRows<FBondEffect>(ContextString, Rows);
+		for (auto& Row : Rows)
+		{
+			int32 Count = BondCount.FindRef(Row->BondName);
+
+			FName EffectId = Row->BondName;
+			if (Count >= Row->ItemRequired)
+			{
+				if (!ActiveBondEffects.Contains(EffectId))
+				{
+					// activate
+					UItemBondBase* Effect = NewObject<UItemBondBase>(this, Row->Effect);
+					if (Effect)
+					{
+						Effect->ActivateBondEffect();
+					}
+					ActiveBondEffects[EffectId] = Effect;
+				}
+			}
+			else
+			{
+				if(ActiveBondEffects.Contains(EffectId))
+				{
+					UItemBondBase* Effect = ActiveBondEffects[EffectId];
+					if (Effect)
+					{
+						Effect->DeactivateBondEffect();
+					}
+					ActiveBondEffects.Remove(EffectId);
+				}
+			}
+		}
+	}
 }

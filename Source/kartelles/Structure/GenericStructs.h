@@ -6,10 +6,42 @@
 #include "GameplayTagContainer.h"
 #include "Abilities/GameplayAbility.h"
 #include "Engine/Texture2D.h"
+#include "kartelles/Bonds/ItemBondBase.h"
 #include "GenericStructs.generated.h"
 
+
+
+// ========= Inventory Cell
 USTRUCT(BlueprintType)
-struct FItemDataStruct : public FTableRowBase
+struct FInventoryCell {
+	GENERATED_BODY()
+public:
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Item")
+	bool Occupied;
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Item")
+	int32 ItemId;
+};
+
+// ========= Bond Effect
+USTRUCT(BlueprintType)
+struct FBondEffect : public FTableRowBase {
+	GENERATED_BODY()
+public:
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Bond")
+	int32 BondId;
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Bond")
+	FName BondName;
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Bond")
+	int32 ItemRequired;
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Bond")
+	TSubclassOf<UItemBondBase> Effect;
+};
+
+
+
+// ========= Item Data
+USTRUCT(BlueprintType)
+struct FItemData : public FTableRowBase
 {
 	GENERATED_BODY()
 public:
@@ -33,29 +65,25 @@ public:
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Item")
 	bool bRotatable = false;
-	
+
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Item")
 	float ItemPrice = 0.f;
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Item")
 	TArray<FIntPoint> ShapeOffsets;
 
-	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Item")
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Ability")
 	TSubclassOf<UGameplayAbility> ItemAbilityClass;
 
-	//UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Item")
+	//UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Ability")
 	//FGameplayAbilitySpecHandle ItemAbilityHandle;
 
-	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Item")
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Ability")
 	FGameplayTag ItemTags;
-};
 
-USTRUCT(BlueprintType)
-struct FInventoryCell {
-	GENERATED_BODY()
-public:
-	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Item")
-	bool Occupied;
-	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Item")
-	int32 ItemId;
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Bond")
+	FName Bond;
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Bond")
+	int32 BondContribution = 1;
 };

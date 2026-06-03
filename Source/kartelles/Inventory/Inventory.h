@@ -5,16 +5,25 @@
 #include "CoreMinimal.h"
 #include "GameFramework/Actor.h"
 #include "Inventory.generated.h"
-struct FItemDataStruct;
+
+struct FItemData;
 struct FInventoryCell;
+class UDataTable;
+class UItemBondBase;
+
 UCLASS()
 class KARTELLES_API AInventory : public AActor
 {
 	GENERATED_BODY()
 	
-public:	
-	// Sets default values for this actor's properties
+public:
 	AInventory();
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Bonds")
+	TMap<FName, int32> BondCount;
+	UPROPERTY(BlueprintReadOnly, Category = "Bonds")
+	TMap<FName, UItemBondBase*> ActiveBondEffects;
+	/*UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Bonds")
+	TArray<F;*/
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Inventory")
 	float GridWidth;
 
@@ -39,11 +48,14 @@ public:
 	UFUNCTION(BlueprintCallable, Category = "Inventory")
 	int32 GetCellIndex(int32 X, int32 Y);
 	UFUNCTION(BlueprintCallable, Category = "Inventory")
-	void PlaceItem(int32 StartX, int32 StartY, FItemDataStruct ItemData);
+	void PlaceItem(int32 StartX, int32 StartY, FItemData ItemData);
 
 	UFUNCTION(BlueprintCallable, Category = "Inventory")
-	void RemoveItem(int32 StartX, int32 StartY, FItemDataStruct ItemData);
+	void RemoveItem(int32 StartX, int32 StartY, FItemData ItemData);
 
 	UFUNCTION(BlueprintCallable, Category = "Inventory")
-	bool CanPlaceItem(int32 StartX, int32 StartY, FItemDataStruct ItemData);
+	bool CanPlaceItem(int32 StartX, int32 StartY, FItemData ItemData);
+
+	UFUNCTION(BlueprintCallable, Category = "Bonds")
+	void ApplyEffects(UDataTable* BondTable);
 };
