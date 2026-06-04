@@ -4,6 +4,7 @@
 #include "Inventory.h"
 #include "kartelles/Structure/GenericStructs.h"
 #include "kartelles/Bonds/ItemBondBase.h"
+#include "Engine/DataTable.h"
 
 // Sets default values
 AInventory::AInventory()
@@ -31,12 +32,6 @@ void AInventory::BeginPlay()
 	
 }
 
-// Called every frame
-void AInventory::Tick(float DeltaTime)
-{
-	Super::Tick(DeltaTime);
-
-}
 
 int32 AInventory::GetCellIndex(int32 X, int32 Y)
 {
@@ -44,7 +39,7 @@ int32 AInventory::GetCellIndex(int32 X, int32 Y)
 	return index;
 }
 
-void AInventory::PlaceItem(int32 StartX, int32 StartY, FItemData ItemData)
+void AInventory::PlaceItem(int32 StartX, int32 StartY, FItemData ItemData, UDataTable* BondTable)
 {
 	int itemWidth = ItemData.Width;
 	int itemHeight = ItemData.Height;
@@ -58,6 +53,7 @@ void AInventory::PlaceItem(int32 StartX, int32 StartY, FItemData ItemData)
 			InventoryCells[cellIndex].ItemId = ItemData.ItemID;
 		}
 	}
+	ApplyEffects(BondTable);
 }
 
 void AInventory::RemoveItem(int32 StartX, int32 StartY, FItemData ItemData)
@@ -100,6 +96,7 @@ bool AInventory::CanPlaceItem(int32 StartX, int32 StartY, FItemData ItemData)
 void AInventory::ApplyEffects(UDataTable* BondTable)
 {
 	if (BondTable) {
+		UE_LOG(LogTemp, Warning, TEXT("Appy Effects C++"))
 		static const FString ContextString(TEXT("Iterating Data Table"));
 		TArray<FBondEffect* > Rows;
 		BondTable->GetAllRows<FBondEffect>(ContextString, Rows);
@@ -107,7 +104,7 @@ void AInventory::ApplyEffects(UDataTable* BondTable)
 		{
 			int32 Count = BondCount.FindRef(Row->BondName);
 
-			FName EffectId = Row->BondName;
+			int32 EffectId = Row->BondId;
 			if (Count >= Row->ItemRequired)
 			{
 				if (!ActiveBondEffects.Contains(EffectId))
@@ -118,7 +115,7 @@ void AInventory::ApplyEffects(UDataTable* BondTable)
 					{
 						Effect->ActivateBondEffect();
 					}
-					ActiveBondEffects[EffectId] = Effect;
+					ActiveBondEffects.Add(EffectId, Effect);
 				}
 			}
 			else

@@ -21,7 +21,7 @@ public:
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Bonds")
 	TMap<FName, int32> BondCount;
 	UPROPERTY(BlueprintReadOnly, Category = "Bonds")
-	TMap<FName, UItemBondBase*> ActiveBondEffects;
+	TMap<int32, UItemBondBase*> ActiveBondEffects;
 	/*UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Bonds")
 	TArray<F;*/
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Inventory")
@@ -42,13 +42,11 @@ protected:
 	virtual void BeginPlay() override;
 
 public:	
-	// Called every frame
-	virtual void Tick(float DeltaTime) override;
 	
 	UFUNCTION(BlueprintCallable, Category = "Inventory")
 	int32 GetCellIndex(int32 X, int32 Y);
 	UFUNCTION(BlueprintCallable, Category = "Inventory")
-	void PlaceItem(int32 StartX, int32 StartY, FItemData ItemData);
+	void PlaceItem(int32 StartX, int32 StartY, FItemData ItemData, UDataTable* BondTable);
 
 	UFUNCTION(BlueprintCallable, Category = "Inventory")
 	void RemoveItem(int32 StartX, int32 StartY, FItemData ItemData);
