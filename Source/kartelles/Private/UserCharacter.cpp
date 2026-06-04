@@ -84,3 +84,21 @@ UAbilitySystemComponent* AUserCharacter::GetAbilitySystemComponent() const
 {
 	return AbilitySystemComponent;
 }
+
+void AUserCharacter::AddAbilityTag(FGameplayTag Tag)
+{
+	ActiveTags.AddTag(Tag);
+	if (AbilitySystemComponent)
+	{
+		AbilitySystemComponent->AddLooseGameplayTag(Tag);
+	}
+}
+
+void AUserCharacter::RemoveAbilityTag(FGameplayTag Tag)
+{
+	ActiveTags.RemoveTag(Tag);
+	if (AbilitySystemComponent)
+	{
+		AbilitySystemComponent->RemoveLooseGameplayTag(Tag);
+	}
+}

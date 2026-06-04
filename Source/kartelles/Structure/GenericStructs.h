@@ -35,6 +35,8 @@ public:
 	int32 ItemRequired;
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Bond")
 	TSubclassOf<UItemBondBase> Effect;
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Bond")
+	FGameplayTag EffectTag;
 };
 
 

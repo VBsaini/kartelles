@@ -5,6 +5,7 @@
 #include "kartelles/Structure/GenericStructs.h"
 #include "kartelles/Bonds/ItemBondBase.h"
 #include "Engine/DataTable.h"
+#include "kartelles/Private/UserCharacter.h"
 
 // Sets default values
 AInventory::AInventory()
@@ -22,6 +23,8 @@ void AInventory::BeginPlay()
 	GridHeight = 6.0;
 	CellSize = 64;
 	BondCount = {};
+	// get player
+	PlayerRef = Cast<AUserCharacter>(GetOwner());
 	int cells = (GridWidth * GridHeight) - 1;
 	for (int i = 0; i < cells; i++) {
 		FInventoryCell cell;
@@ -104,30 +107,32 @@ void AInventory::ApplyEffects(UDataTable* BondTable)
 		{
 			int32 Count = BondCount.FindRef(Row->BondName);
 
-			int32 EffectId = Row->BondId;
+			FGameplayTag EffectTag = Row->EffectTag;
 			if (Count >= Row->ItemRequired)
 			{
-				if (!ActiveBondEffects.Contains(EffectId))
+				if (!ActiveBondEffects.Contains(EffectTag))
 				{
 					// activate
-					UItemBondBase* Effect = NewObject<UItemBondBase>(this, Row->Effect);
+					/*UItemBondBase* Effect = NewObject<UItemBondBase>(this, Row->Effect);
 					if (Effect)
 					{
 						Effect->ActivateBondEffect();
-					}
-					ActiveBondEffects.Add(EffectId, Effect);
+					}*/
+					PlayerRef->AddAbilityTag(Row->EffectTag);
+					ActiveBondEffects.Add(EffectTag);
 				}
 			}
 			else
 			{
-				if(ActiveBondEffects.Contains(EffectId))
+				if(ActiveBondEffects.Contains(EffectTag))
 				{
-					UItemBondBase* Effect = ActiveBondEffects[EffectId];
+					/*UItemBondBase* Effect = ActiveBondEffects[EffectTag];
 					if (Effect)
 					{
 						Effect->DeactivateBondEffect();
-					}
-					ActiveBondEffects.Remove(EffectId);
+					}*/
+					PlayerRef->RemoveAbilityTag(Row->EffectTag);
+					ActiveBondEffects.Remove(EffectTag);
 				}
 			}
 		}

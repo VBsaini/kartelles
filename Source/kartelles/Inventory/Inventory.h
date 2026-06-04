@@ -4,12 +4,14 @@
 
 #include "CoreMinimal.h"
 #include "GameFramework/Actor.h"
+#include "GameplayTagContainer.h"
 #include "Inventory.generated.h"
 
 struct FItemData;
 struct FInventoryCell;
 class UDataTable;
 class UItemBondBase;
+class AUserCharacter;
 
 UCLASS()
 class KARTELLES_API AInventory : public AActor
@@ -18,10 +20,12 @@ class KARTELLES_API AInventory : public AActor
 	
 public:
 	AInventory();
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Player")
+	AUserCharacter* PlayerRef;
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Bonds")
 	TMap<FName, int32> BondCount;
 	UPROPERTY(BlueprintReadOnly, Category = "Bonds")
-	TMap<int32, UItemBondBase*> ActiveBondEffects;
+	TSet<FGameplayTag> ActiveBondEffects;
 	/*UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Bonds")
 	TArray<F;*/
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Inventory")

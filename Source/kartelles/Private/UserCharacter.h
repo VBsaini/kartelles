@@ -5,12 +5,12 @@
 #include "CoreMinimal.h"
 #include "GameFramework/Character.h"
 #include "AbilitySystemInterface.h"
+#include "GameplayTagContainer.h"
 #include "UserCharacter.generated.h"
 
 
 class UInputAction;
 class UBasicAttributeSet;
-
 
 UCLASS()
 class AUserCharacter : public ACharacter, public IAbilitySystemInterface
@@ -18,6 +18,9 @@ class AUserCharacter : public ACharacter, public IAbilitySystemInterface
 	GENERATED_BODY()
 
 public:
+	UPROPERTY(BlueprintReadWrite, Category = "Bonds")
+	FGameplayTagContainer ActiveTags;
+
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "Abilities")
 	TObjectPtr<UAbilitySystemComponent> AbilitySystemComponent;
 
@@ -50,6 +53,10 @@ public:
 	// Ability System Interface
 	virtual UAbilitySystemComponent* GetAbilitySystemComponent() const override;
 
+	/*virtual void GetOwnedGameplayTags(
+		FGameplayTagContainer& TagContainer
+	) const override;*/
 
-
+	void AddAbilityTag(FGameplayTag Tag);
+	void RemoveAbilityTag(FGameplayTag Tag);
 };
