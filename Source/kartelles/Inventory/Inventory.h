@@ -22,12 +22,13 @@ public:
 	AInventory();
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Player")
 	AUserCharacter* PlayerRef;
+
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Bonds")
 	TMap<FName, int32> BondCount;
+	
 	UPROPERTY(BlueprintReadOnly, Category = "Bonds")
 	TSet<FGameplayTag> ActiveBondEffects;
-	/*UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Bonds")
-	TArray<F;*/
+	
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Inventory")
 	float GridWidth;
 
@@ -39,7 +40,6 @@ public:
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Inventory")
 	TArray<FInventoryCell> InventoryCells;
-	//TSub
 
 protected:
 	// Called when the game starts or when spawned
@@ -49,6 +49,7 @@ public:
 	
 	UFUNCTION(BlueprintCallable, Category = "Inventory")
 	int32 GetCellIndex(int32 X, int32 Y);
+
 	UFUNCTION(BlueprintCallable, Category = "Inventory")
 	void PlaceItem(int32 StartX, int32 StartY, FItemData ItemData, UDataTable* BondTable);
 

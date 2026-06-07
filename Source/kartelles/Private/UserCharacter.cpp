@@ -9,6 +9,7 @@
 // Abilities
 #include "AbilitySystemComponent.h"
 #include "kartelles/GAS/Attributes/BasicAttributeSet.h"
+#include "kartelles/GAS/Attributes/DamageAttributeSet.h"
 
 #include "kartelles/Manager/EnemyManagerSubsystem.h"
 
@@ -21,6 +22,7 @@ AUserCharacter::AUserCharacter()
 	
 	// Add the basic attribute set
 	BasicAttributeSet = CreateDefaultSubobject<UBasicAttributeSet>(TEXT("BasicAttributeSet"));
+	DamageAttributeSet = CreateDefaultSubobject<UDamageAttributeSet>(TEXT("DamageAttributeSet"));
 
 }
 
