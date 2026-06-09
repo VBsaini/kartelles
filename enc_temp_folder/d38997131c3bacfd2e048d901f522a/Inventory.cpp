@@ -98,7 +98,6 @@ bool AInventory::CanPlaceItem(int32 StartX, int32 StartY, FItemData ItemData)
 	if (!ItemData.PlacementRule) {
 		UItemPlacementRule* Rule = NewObject<UItemPlacementRule>(this, ItemData.PlacementRule);
 		if(Rule) {
-			Rule->InvRef = this;
 			return Rule->CanPlace(StartX, StartY, ItemData);
 		}
 	}
@@ -147,24 +146,4 @@ void AInventory::ApplyEffects(UDataTable* BondTable)
 			}
 		}
 	}
-}
-
-bool AInventory::IsCellOccupied(int32 X, int32 Y)
-{
-	return false;
-}
-
-int32 AInventory::GetCellItemId(int32 X, int32 Y)
-{
-	int32 index = GetCellIndex(X, Y);
-	int32 id = -1;
-	if (InventoryCells.IsValidIndex(index)) {
-		id = InventoryCells[index].ItemId;
-	}
-	return id;
-}
-
-FItemData AInventory::GetItemAt(int32 X, int32 Y)
-{
-	return FItemData();
 }

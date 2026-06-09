@@ -7,6 +7,7 @@
 #include "Abilities/GameplayAbility.h"
 #include "Engine/Texture2D.h"
 #include "kartelles/Bonds/ItemBondBase.h"
+#include "kartelles/Inventory/PlacementRule/ItemPlacementRule.h"
 #include "GenericStructs.generated.h"
 
 
@@ -88,4 +89,7 @@ public:
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Bond")
 	int32 BondContribution = 1;
+
+	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "Placement")
+	TSubclassOf<class UItemPlacementRule> PlacementRule;
 };

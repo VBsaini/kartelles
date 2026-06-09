@@ -61,13 +61,4 @@ public:
 
 	UFUNCTION(BlueprintCallable, Category = "Bonds")
 	void ApplyEffects(UDataTable* BondTable);
-
-	UFUNCTION(BlueprintCallable)
-	bool IsCellOccupied(int32 X, int32 Y);
-
-	UFUNCTION(BlueprintCallable)
-	int32 GetCellItemId(int32 X, int32 Y);
-
-	UFUNCTION(BlueprintCallable)
-	FItemData GetItemAt(int32 X, int32 Y);
 };
