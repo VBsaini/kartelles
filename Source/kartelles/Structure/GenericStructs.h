@@ -92,4 +92,8 @@ public:
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Placement")
 	TSubclassOf<UItemPlacementRule> PlacementRule;
+
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "SubItem")
+	bool SubItem;
 };

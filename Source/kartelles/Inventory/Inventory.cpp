@@ -91,8 +91,15 @@ bool AInventory::CanPlaceItem(int32 StartX, int32 StartY, FItemData ItemData)
 		}
 		int32 cellIndex = GetCellIndex(cellX, cellY);
 		if(InventoryCells.IsValidIndex(cellIndex)) {
-			if(InventoryCells[cellIndex].Occupied) {
-				return false;
+			if (!ItemData.SubItem) {
+				if (InventoryCells[cellIndex].Occupied) {
+					return false;
+				}
+			}
+			else {
+				if (!InventoryCells[cellIndex].Occupied) {
+					return false;
+				}
 			}
 		} else {
 			return false; // Out of bounds
