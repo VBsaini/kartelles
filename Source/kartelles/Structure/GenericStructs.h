@@ -90,6 +90,6 @@ public:
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Bond")
 	int32 BondContribution = 1;
 
-	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "Placement")
-	TSubclassOf<class UItemPlacementRule> PlacementRule;
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Placement")
+	TSubclassOf<UItemPlacementRule> PlacementRule;
 };

@@ -26,7 +26,7 @@ void AInventory::BeginPlay()
 	BondCount = {};
 	// get player
 	PlayerRef = Cast<AUserCharacter>(GetOwner());
-	int cells = (GridWidth * GridHeight) - 1;
+	int cells = (GridWidth * GridHeight);
 	for (int i = 0; i < cells; i++) {
 		FInventoryCell cell;
 		cell.Occupied = false;
@@ -79,6 +79,10 @@ bool AInventory::CanPlaceItem(int32 StartX, int32 StartY, FItemData ItemData)
 {
 	int itemWidth = ItemData.Width;
 	int itemHeight = ItemData.Height;
+	UItemPlacementRule* Rule = nullptr;
+	if (ItemData.PlacementRule) {
+		Rule = NewObject<UItemPlacementRule>(this, ItemData.PlacementRule);
+	}
 	for(const FIntPoint& offset : ItemData.ShapeOffsets) {
 		int32 cellX = StartX + offset.X;
 		int32 cellY = StartY + offset.Y;
@@ -93,15 +97,16 @@ bool AInventory::CanPlaceItem(int32 StartX, int32 StartY, FItemData ItemData)
 		} else {
 			return false; // Out of bounds
 		}
-	}
-
-	if (!ItemData.PlacementRule) {
-		UItemPlacementRule* Rule = NewObject<UItemPlacementRule>(this, ItemData.PlacementRule);
-		if(Rule) {
-			Rule->InvRef = this;
-			return Rule->CanPlace(StartX, StartY, ItemData);
+		if (ItemData.PlacementRule) {
+			if (Rule) {
+				Rule->InvRef = this;
+				if(!Rule->CanPlace(cellX, cellY, ItemData)) {
+					return false;
+				}
+			}
 		}
 	}
+
 
 	return true;
 }

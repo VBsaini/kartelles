@@ -12,7 +12,7 @@ class AInventory;
 /**
  * 
  */
-UCLASS(Blueprintable)
+UCLASS(Blueprintable, BlueprintType)
 class KARTELLES_API UItemPlacementRule : public UObject
 {
 	GENERATED_BODY()
