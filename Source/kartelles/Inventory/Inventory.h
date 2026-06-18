@@ -5,9 +5,9 @@
 #include "CoreMinimal.h"
 #include "GameFramework/Actor.h"
 #include "GameplayTagContainer.h"
+#include "kartelles/Structure/GenericStructs.h"
 #include "Inventory.generated.h"
 
-struct FItemData;
 struct FInventoryCell;
 class UDataTable;
 class UItemBondBase;

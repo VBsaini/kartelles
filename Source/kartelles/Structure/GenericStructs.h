@@ -96,4 +96,17 @@ public:
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "SubItem")
 	bool SubItem;
+
+	// Tells the TSet how to check if two items are the same
+	bool operator==(const FItemData& Other) const
+	{
+		return ItemID == Other.ItemID;
+	}
+
+	// Tells the TSet how to hash the item for fast lookups
+	friend uint32 GetTypeHash(const FItemData& Item)
+	{
+		return GetTypeHash(Item.ItemID);
+	}
+
 };

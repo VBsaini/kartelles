@@ -2,7 +2,6 @@
 
 
 #include "Inventory.h"
-#include "kartelles/Structure/GenericStructs.h"
 #include "kartelles/Bonds/ItemBondBase.h"
 #include "Engine/DataTable.h"
 #include "kartelles/Private/UserCharacter.h"
@@ -186,28 +185,27 @@ FItemData AInventory::GetItemAt(int32 X, int32 Y)
 TSet<FItemData> AInventory::GetAdjacentItems(int32 X, int32 Y)
 {
 	TSet<FItemData> AdjacentItems;
-	for(auto& offset : TArray<FIntPoint>{FIntPoint(-1, 0), FIntPoint(1, 0), FIntPoint(0, -1), FIntPoint(0, 1)}) {
-		int32 cellX = X + offset.X;
-		int32 cellY = Y + offset.Y;
-		if(cellY < 0 || cellY >= GridHeight || cellX < 0 || cellX >= GridWidth) {
-			continue; // Out of bounds
-		}
-		for (int i = 0; i <= 1; i++) {
-			for(int j = 0; j <= 1; j++) {
-				int32 checkX = cellX + i;
-				int32 checkY = cellY + j;
-				if(checkY < 0 || checkY >= GridHeight || checkX < 0 || checkX >= GridWidth) {
-					continue; // Out of bounds
-				}
-				int32 cellIndex = GetCellIndex(checkX, checkY);
-				if(InventoryCells.IsValidIndex(cellIndex)) {
-					if (InventoryCells[cellIndex].Occupied) {
-						FItemData item = GetItemAt(checkX, checkY);
+	FItemData CurrentItem = GetItemAt(X, Y);
+	static const FIntPoint Directions[4] = {
+		FIntPoint(-1, 0), FIntPoint(1, 0), FIntPoint(0, -1), FIntPoint(0, 1)
+	};
+	for (auto& offset : CurrentItem.ShapeOffsets) {
+		for (auto& direction : Directions) {
+			int32 cellX = X + offset.X + direction.X;
+			int32 cellY = Y + offset.Y + direction.Y;
+			if (cellY < 0 || cellY >= GridHeight || cellX < 0 || cellX >= GridWidth) {
+				continue; // Out of bounds
+			}
+			int32 cellIndex = GetCellIndex(cellX, cellY);
+			if (InventoryCells.IsValidIndex(cellIndex)) {
+				if (InventoryCells[cellIndex].Occupied) {
+					FItemData item = GetItemAt(cellX, cellY);
+					if (item.ItemID != CurrentItem.ItemID) {
 						AdjacentItems.Add(item);
 					}
 				}
 			}
 		}
 	}
-	return TSet<FItemData>();
+	return AdjacentItems;
 }
