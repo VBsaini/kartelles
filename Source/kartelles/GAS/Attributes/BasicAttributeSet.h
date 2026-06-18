@@ -36,8 +36,12 @@ public:
 	FGameplayAttributeData MaxShield;
 	ATTRIBUTE_ACCESSORS_BASIC(UBasicAttributeSet, MaxShield)
 
-	UPROPERTY(BlueprintReadOnly, Category = "Attributes")
+	UPROPERTY(BlueprintReadOnly, Category = "Shop")
 	FGameplayAttributeData Gold;
 	ATTRIBUTE_ACCESSORS_BASIC(UBasicAttributeSet, Gold)
+
+	UPROPERTY(BlueprintReadOnly, Category = "Reflection")
+	FGameplayAttributeData ReflectionMultiplier;
+	ATTRIBUTE_ACCESSORS_BASIC(UBasicAttributeSet, ReflectionMultiplier);
 
 };
