@@ -41,6 +41,11 @@ public:
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Inventory")
 	TArray<FInventoryCell> InventoryCells;
 
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Inventory")
+	TMap<int32, FItemData> InventoryItemData;
+
+
+
 protected:
 	// Called when the game starts or when spawned
 	virtual void BeginPlay() override;
@@ -70,4 +75,6 @@ public:
 
 	UFUNCTION(BlueprintCallable)
 	FItemData GetItemAt(int32 X, int32 Y);
+
+	TSet<FItemData> GetAdjacentItems(int32 X, int32 Y);
 };
