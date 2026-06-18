@@ -56,6 +56,7 @@ void UGE_DamagePlayerCalc::Execute_Implementation(const FGameplayEffectCustomExe
 	EvaluationParameters.SourceTags = Spec.CapturedSourceTags.GetAggregatedTags();
 	EvaluationParameters.TargetTags = Spec.CapturedTargetTags.GetAggregatedTags();
 
+
 	// Read the Initial Damage from Set By Caller
 	float BaseDamage = Spec.GetSetByCallerMagnitude(DamageTag, false, 0.0f);
 	if (BaseDamage <= 0.0f) return;
@@ -105,7 +106,7 @@ void UGE_DamagePlayerCalc::Execute_Implementation(const FGameplayEffectCustomExe
 		if (ReflectionSpecHandle.IsValid())
 		{
 			// Pass the reflected damage back using the exact same tag
-			ReflectionSpecHandle.Data.Get()->SetSetByCallerMagnitude(DamageTag, ReflectedDamage);
+			ReflectionSpecHandle.Data.Get()->SetSetByCallerMagnitude(DamageTag, -ReflectedDamage);
 			TargetASC->ApplyGameplayEffectSpecToTarget(*ReflectionSpecHandle.Data.Get(), SourceASC);
 		}
 	}

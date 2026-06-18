@@ -15,14 +15,15 @@ const tagColors = {
 
 async function run() {
   try {
-    // We read the local GitHub event file directly - ZERO packages required!
     const eventPath = process.env.GITHUB_EVENT_PATH;
     if (!eventPath) throw new Error("Not running inside GitHub Actions.");
 
     const eventData = JSON.parse(fs.readFileSync(eventPath, "utf8"));
-    const commits = eventData.commits;
 
-    if (!commits || commits.length === 0) {
+    // We process in standard order [old, new] so the newest is inserted LAST.
+    const commits = eventData.commits || [];
+
+    if (commits.length === 0) {
       console.log("No commits found in this push.");
       return;
     }
@@ -41,7 +42,6 @@ async function run() {
 
       const pillColor = tagColors[tag] || "default";
 
-      // We use native Node.js 'fetch' to talk to Notion directly
       const response = await fetch("https://api.notion.com/v1/pages", {
         method: "POST",
         headers: {
