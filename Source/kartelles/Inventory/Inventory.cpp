@@ -55,8 +55,8 @@ void AInventory::PlaceItem(int32 StartX, int32 StartY, FItemData ItemData, UData
 			InventoryCells[cellIndex].Occupied = true;
 			InventoryCells[cellIndex].ItemId = ItemData.ItemID;
 		}
+		InventoryItemData.Add(GetCellIndex(cellX, cellY), ItemData);
 	}
-	InventoryItemData.Add(GetCellIndex(StartY, StartX), ItemData);
 	ApplyEffects(BondTable);
 }
 
@@ -178,29 +178,51 @@ int32 AInventory::GetCellItemId(int32 X, int32 Y)
 
 FItemData AInventory::GetItemAt(int32 X, int32 Y)
 {	
+	// 1. Get your calculated key index
+	int32 TargetIndex = GetCellIndex(X, Y);
+	
+	UE_LOG(LogTemp, Warning, TEXT("GetItemAt: Looking for item at index %d"), TargetIndex);
 
-	return InventoryItemData[GetCellIndex(X, Y)];
+	// 2. Look up the key inside the Map using Find()
+	if (FItemData* FoundItem = InventoryItemData.Find(TargetIndex))
+	{
+		// Key exists! Dereference the pointer to return the actual struct data
+		return *FoundItem;
+	}
+
+	// 3. Fallback: Key wasn't found in the map, return a blank default struct
+	return FItemData();
+
 }
 
 TSet<FItemData> AInventory::GetAdjacentItems(int32 X, int32 Y)
 {
 	TSet<FItemData> AdjacentItems;
 	FItemData CurrentItem = GetItemAt(X, Y);
+
+	// Safety Check: If the base item is invalid or empty, abort immediately
+	if (CurrentItem.ItemID <= 0) return AdjacentItems;
+
 	static const FIntPoint Directions[4] = {
 		FIntPoint(-1, 0), FIntPoint(1, 0), FIntPoint(0, -1), FIntPoint(0, 1)
 	};
-	for (auto& offset : CurrentItem.ShapeOffsets) {
-		for (auto& direction : Directions) {
+
+	for (const FIntPoint& offset : CurrentItem.ShapeOffsets) {
+		for (const FIntPoint& direction : Directions) {
 			int32 cellX = X + offset.X + direction.X;
 			int32 cellY = Y + offset.Y + direction.Y;
+
 			if (cellY < 0 || cellY >= GridHeight || cellX < 0 || cellX >= GridWidth) {
 				continue; // Out of bounds
 			}
+
 			int32 cellIndex = GetCellIndex(cellX, cellY);
 			if (InventoryCells.IsValidIndex(cellIndex)) {
 				if (InventoryCells[cellIndex].Occupied) {
 					FItemData item = GetItemAt(cellX, cellY);
-					if (item.ItemID != CurrentItem.ItemID) {
+
+					// Filter out self AND filter out empty default structs (e.g., ID 0 or -1)
+					if (item.ItemID > 0 && item.ItemID != CurrentItem.ItemID) {
 						AdjacentItems.Add(item);
 					}
 				}

@@ -13,6 +13,8 @@ class UInputAction;
 class UBasicAttributeSet;
 class UDamageAttributeSet;
 
+struct FItemData;
+
 UCLASS()
 class AUserCharacter : public ACharacter, public IAbilitySystemInterface
 {
@@ -56,10 +58,9 @@ public:
 	// Ability System Interface
 	virtual UAbilitySystemComponent* GetAbilitySystemComponent() const override;
 
-	/*virtual void GetOwnedGameplayTags(
-		FGameplayTagContainer& TagContainer
-	) const override;*/
-
 	void AddAbilityTag(FGameplayTag Tag);
 	void RemoveAbilityTag(FGameplayTag Tag);
+
+	UFUNCTION(BlueprintCallable, Category = "Abilities")
+	void AddAbility(FItemData item, int32 X, int32 Y);
 };

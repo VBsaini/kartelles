@@ -75,6 +75,6 @@ public:
 
 	UFUNCTION(BlueprintCallable)
 	FItemData GetItemAt(int32 X, int32 Y);
-
+	UFUNCTION(BlueprintCallable)
 	TSet<FItemData> GetAdjacentItems(int32 X, int32 Y);
 };

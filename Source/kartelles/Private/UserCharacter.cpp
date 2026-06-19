@@ -6,6 +6,9 @@
 #include "EnhancedInputSubsystems.h"
 #include "InputActionValue.h"
 
+#include "kartelles/DataWrappers/AbilityDataWrapper.h"
+#include "kartelles/Structure/GenericStructs.h"
+
 // Abilities
 #include "AbilitySystemComponent.h"
 #include "kartelles/GAS/Attributes/BasicAttributeSet.h"
@@ -103,4 +106,16 @@ void AUserCharacter::RemoveAbilityTag(FGameplayTag Tag)
 	{
 		AbilitySystemComponent->RemoveLooseGameplayTag(Tag);
 	}
+}
+
+void AUserCharacter::AddAbility(FItemData item, int32 X, int32 Y)
+{
+	FGameplayAbilitySpec spec = FGameplayAbilitySpec(item.ItemAbilityClass, 0, 0);
+	UAbilityDataWrapper* DataWrapper = NewObject<UAbilityDataWrapper>(this);
+	DataWrapper->ItemData = item; // Store the item data in the wrapper for later retrieval in the ability
+	DataWrapper->IndexX = X; // Store the index in the wrapper for later retrieval in the ability
+	DataWrapper->IndexY = Y; // Store the index in the wrapper for later retrieval in the ability
+	spec.SourceObject = DataWrapper; // Store the item data in the SourceObject of the spec for later retrieval in the ability
+
+	AbilitySystemComponent->GiveAbility(spec);
 }
