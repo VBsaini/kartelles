@@ -46,6 +46,7 @@ void AInventory::PlaceItem(int32 StartX, int32 StartY, FItemData ItemData, UData
 {
 	int itemWidth = ItemData.Width;
 	int itemHeight = ItemData.Height;
+	int32 ItemIndex = GetCellIndex(StartX, StartY);
 	BondCount.FindOrAdd(ItemData.Bond) += ItemData.BondContribution;
 	for(const FIntPoint& offset : ItemData.ShapeOffsets) {
 		int32 cellX = StartX + offset.X;
@@ -54,10 +55,10 @@ void AInventory::PlaceItem(int32 StartX, int32 StartY, FItemData ItemData, UData
 		if(InventoryCells.IsValidIndex(cellIndex)) {
 			InventoryCells[cellIndex].Occupied = true;
 			InventoryCells[cellIndex].ItemId = ItemData.ItemID;
+			InventoryCells[cellIndex].AnchorIndex = ItemIndex;
 		}
 		InventoryItemData.Add(GetCellIndex(cellX, cellY), ItemData);
 	}
-	ItemData.AnchorIndex = GetCellIndex(StartX, StartY);
 	ApplyEffects(BondTable);
 }
 
@@ -196,13 +197,18 @@ FItemData AInventory::GetItemAt(int32 X, int32 Y)
 
 }
 
-TSet<FItemData> AInventory::GetAdjacentItems(int32 X, int32 Y)
+TArray<FItemData> AInventory::GetAdjacentItems(int32 X, int32 Y)
 {
-	TSet<FItemData> AdjacentItems;
-	FItemData CurrentItem = GetItemAt(X, Y);
+	TArray<FItemData> AdjacentItems;
+	int32 BaseIndex = GetCellIndex(X, Y);
 
 	// Safety Check: If the base item is invalid or empty, abort immediately
-	if (CurrentItem.ItemID <= 0) return AdjacentItems;
+	if (!InventoryCells[BaseIndex].Occupied || !InventoryCells.IsValidIndex(BaseIndex)) return AdjacentItems;
+
+	int32 CurrentAnchorIndex = InventoryCells[BaseIndex].AnchorIndex;
+	FItemData CurrentItem = GetItemAt(X, Y);
+
+	TSet<int32> UniqueItemIndices; // To track already added items and prevent duplicates
 
 	static const FIntPoint Directions[4] = {
 		FIntPoint(-1, 0), FIntPoint(1, 0), FIntPoint(0, -1), FIntPoint(0, 1)
@@ -222,9 +228,12 @@ TSet<FItemData> AInventory::GetAdjacentItems(int32 X, int32 Y)
 				if (InventoryCells[cellIndex].Occupied) {
 					FItemData item = GetItemAt(cellX, cellY);
 
+					int32 NeighborAnchorIndex = InventoryCells[cellIndex].AnchorIndex;
+
 					// Filter out self AND filter out empty default structs (e.g., ID 0 or -1)
-					if (item.ItemID > 0 && item.ItemID != CurrentItem.ItemID) {
+					if (NeighborAnchorIndex != -1 && NeighborAnchorIndex != CurrentAnchorIndex && !UniqueItemIndices.Contains(NeighborAnchorIndex)) {
 						AdjacentItems.Add(item);
+						UniqueItemIndices.Add(NeighborAnchorIndex);
 					}
 				}
 			}
