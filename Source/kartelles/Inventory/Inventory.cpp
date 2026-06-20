@@ -57,6 +57,7 @@ void AInventory::PlaceItem(int32 StartX, int32 StartY, FItemData ItemData, UData
 		}
 		InventoryItemData.Add(GetCellIndex(cellX, cellY), ItemData);
 	}
+	ItemData.AnchorIndex = GetCellIndex(StartX, StartY);
 	ApplyEffects(BondTable);
 }
 
