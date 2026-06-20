@@ -21,6 +21,10 @@ public:
 	bool Occupied;
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Item")
 	int32 ItemId;
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Grid")
+	int32 AnchorIndex = -1;
+
 };
 
 // ========= Bond Effect
@@ -97,19 +101,6 @@ public:
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "SubItem")
 	bool SubItem;
 
-	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Grid")
-	int32 AnchorIndex = -1;
 
-	// Tells the TSet how to check if two items are the same
-	bool operator==(const FItemData& Other) const
-	{
-		return AnchorIndex == Other.AnchorIndex;
-	}
-
-	// Tells the TSet how to hash the item for fast lookups
-	friend uint32 GetTypeHash(const FItemData& Item)
-	{
-		return GetTypeHash(Item.AnchorIndex);
-	}
 
 };
